@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: hrel-scanner
-          image: eu.gcr.io/hrel-168422/hrel:master
+          image: eu.gcr.io/hrel-168422/hrel:84cf71d402e85256bd05961b975d21b60d169a9a
           imagePullPolicy: Always
           command:
             - /bin/sh
