@@ -1,0 +1,71 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hrel-v1-web-server
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hrel-v1-web-server
+    spec:
+      containers:
+        - name: hrel-v1-internal-web-server
+          image: eu.gcr.io/hrel-168422/hrel-v1:bcd53a916b26da99f3e6773d5ef4154be88daa13
+          imagePullPolicy: Always
+          command:
+            - node
+            - server/server.js
+          ports:
+            - containerPort: 3102
+          env:
+            - name: PGHOST
+              value: hrel-database
+            - name: PGUSER
+              value: hrel
+            - name: PGDATABASE
+              value: hrelv1
+        - name: hrel-v1-external-web-server
+          image: eu.gcr.io/hrel-168422/hrel-v1-nginx:bcd53a916b26da99f3e6773d5ef4154be88daa13
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hrel-v1-scanner
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hrel-v1-scanner
+    spec:
+      containers:
+        - name: hrel-v1-scanner
+          image: eu.gcr.io/hrel-168422/hrel-v1:bcd53a916b26da99f3e6773d5ef4154be88daa13
+          imagePullPolicy: Always
+          command:
+            - /bin/sh
+            - -c
+            - while true; do node server/scanner.js; sleep 1200; done
+          env:
+            - name: PGHOST
+              value: hrel-database
+            - name: PGUSER
+              value: hrel
+            - name: PGDATABASE
+              value: hrelv1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hrel-v1-web-server
+spec:
+  type: ClusterIP
+  selector:
+    app: hrel-v1-web-server
+  ports:
+    - protocol: TCP
+      port: 8080
