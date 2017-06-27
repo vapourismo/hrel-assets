@@ -10,8 +10,8 @@ spec:
         app: hrel-v1-web-server
     spec:
       containers:
-        - name: hrel-v1-internal-web-server
-          image: eu.gcr.io/hrel-168422/hrel-v1:bcd53a916b26da99f3e6773d5ef4154be88daa13
+        - name: hrel-v1-web-server
+          image: eu.gcr.io/hrel-168422/hrel-v1:499071a28cd03f157065afc7711902905a6c7578
           imagePullPolicy: Always
           command:
             - node
@@ -25,11 +25,6 @@ spec:
               value: hrel
             - name: PGDATABASE
               value: hrelv1
-        - name: hrel-v1-external-web-server
-          image: eu.gcr.io/hrel-168422/hrel-v1-nginx:bcd53a916b26da99f3e6773d5ef4154be88daa13
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 8080
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -44,7 +39,7 @@ spec:
     spec:
       containers:
         - name: hrel-v1-scanner
-          image: eu.gcr.io/hrel-168422/hrel-v1:bcd53a916b26da99f3e6773d5ef4154be88daa13
+          image: eu.gcr.io/hrel-168422/hrel-v1:499071a28cd03f157065afc7711902905a6c7578
           imagePullPolicy: Always
           command:
             - /bin/sh
@@ -68,4 +63,4 @@ spec:
     app: hrel-v1-web-server
   ports:
     - protocol: TCP
-      port: 8080
+      port: 3102
