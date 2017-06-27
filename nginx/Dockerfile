@@ -1,7 +1,4 @@
-FROM base/archlinux
-
-# Setup system
-RUN pacman -Sy --noconfirm nginx
+FROM nginx
 
 # Provide nginx configuration
 ADD nginx.conf /etc/nginx/nginx.conf
