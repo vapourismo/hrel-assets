@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: hrel-out
-          image: eu.gcr.io/hrel-168422/hrel-assets-nginx:e74d9256aa95f2dd8516a202cee7897b43470213
+          image: eu.gcr.io/hrel-168422/hrel-assets-nginx:086a3bae22772e9c1885f675352ac9864442e583
           imagePullPolicy: Always
           ports:
             - containerPort: 80
