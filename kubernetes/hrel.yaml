@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: hrel-internal-web-server
-          image: eu.gcr.io/hrel-168422/hrel:9800c66d486a320f96815ca71e21d09809282f4a
+          image: eu.gcr.io/hrel-168422/hrel:331464de5268af093479008a2920176a9b86af60
           imagePullPolicy: Always
           command:
             - hrel-webserver
@@ -21,7 +21,7 @@ spec:
             - name: PGINFO
               value: "host=hrel-database user=hrel dbname=hrel"
         - name: hrel-external-web-server
-          image: eu.gcr.io/hrel-168422/hrel-nginx:master
+          image: eu.gcr.io/hrel-168422/hrel-nginx:331464de5268af093479008a2920176a9b86af60
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
         - name: hrel-scanner
-          image: eu.gcr.io/hrel-168422/hrel:9800c66d486a320f96815ca71e21d09809282f4a
+          image: eu.gcr.io/hrel-168422/hrel:331464de5268af093479008a2920176a9b86af60
           imagePullPolicy: Always
           command:
             - /bin/sh
